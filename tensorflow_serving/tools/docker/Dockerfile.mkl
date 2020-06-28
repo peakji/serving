@@ -48,7 +48,7 @@ ENV LD_LIBRARY_PATH '/usr/local/lib:$LD_LIBRARY_PATH'
 EXPOSE 8500
 
 # REST
-EXPOSE 8501
+EXPOSE 8000
 
 # Set where models should be stored in the container
 ENV MODEL_BASE_PATH=/models
@@ -98,7 +98,7 @@ ENV TENSORFLOW_INTRA_OP_PARALLELISM=2
 ENV TENSORFLOW_INTER_OP_PARALLELISM=2
 
 RUN echo '#!/bin/bash \n\n\
-tensorflow_model_server --port=8500 --rest_api_port=8501 \
+tensorflow_model_server --port=8500 --rest_api_port=8000 \
 --tensorflow_intra_op_parallelism=${TENSORFLOW_INTRA_OP_PARALLELISM} \
 --tensorflow_inter_op_parallelism=${TENSORFLOW_INTER_OP_PARALLELISM} \
 --model_name=${MODEL_NAME} --model_base_path=${MODEL_BASE_PATH}/${MODEL_NAME} \

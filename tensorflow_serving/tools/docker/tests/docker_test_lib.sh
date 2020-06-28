@@ -96,7 +96,7 @@ function _query_model {
   while (( attempts++ < max_attempts )); do
     echo "Querying TF ModelServer (attempt: ${attempts})"
     result=$(curl -s -d "${REQUEST}" \
-      -X POST http://localhost:8501/v1/models/${MODELNAME}:predict)
+      -X POST http://localhost:8000/v1/models/${MODELNAME}:predict)
     if echo "$result" | tr -d '\n ' \
       | grep -q -s -F "${RESPONSE}"; then
       break
@@ -133,7 +133,7 @@ function test_docker_image {
   IMAGE="$1"
   _copy_modeldir
 
-  local rest_port="8501"
+  local rest_port="8000"
   local model_base_path="/models/${MODELNAME}"
   local docker_opts=" --privileged=true --rm -t -p ${rest_port}:${rest_port}"
   docker_opts+=" -v ${MODEL_FULL_PATH}:${model_base_path}"
