@@ -16,7 +16,7 @@ ARG TF_SERVING_VERSION=latest
 ARG TF_SERVING_BUILD_IMAGE=tensorflow/serving:${TF_SERVING_VERSION}-devel-gpu
 
 FROM ${TF_SERVING_BUILD_IMAGE} as build_image
-FROM nvidia/cuda:10.0-base-ubuntu16.04
+FROM nvidia/cuda:10.0-base-ubuntu18.04
 
 ARG TF_SERVING_VERSION_GIT_BRANCH=master
 ARG TF_SERVING_VERSION_GIT_COMMIT=head
@@ -49,7 +49,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # We don't install libnvinfer-dev since we don't need to build against TensorRT.
 RUN apt-get update && \
     apt-get install --no-install-recommends \
-        nvinfer-runtime-trt-repo-ubuntu1604-${TF_TENSORRT_VERSION}-ga-cuda10.0 && \
+        nvinfer-runtime-trt-repo-ubuntu1804-${TF_TENSORRT_VERSION}-ga-cuda10.0 && \
     apt-get update && \
     apt-get install --no-install-recommends \
         libnvinfer5=${TF_TENSORRT_VERSION}-1+cuda10.0 && \
